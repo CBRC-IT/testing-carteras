@@ -1,0 +1,32 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: wefwefwf
+      id: wefwefwf
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: wefwefwf
+        setup-command: ''
+        command: cat secret.flag.000
+        input: ''
+        expected-output: cbrc_CTF{1234567890}
+        comparison-method: exact
+        timeout: 10
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        WEFWEFWF_RESULTS: "${{steps.wefwefwf.outputs.result}}"
+      with:
+        runners: wefwefwf
